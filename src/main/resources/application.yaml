@@ -1,0 +1,15 @@
+spring:
+  kafka:
+    bootstrap-servers: localhost
+  jpa:
+    database: H2
+    show-sql: true
+    hibernate:
+      ddl-auto: update
+  datasource:
+    url: jdbc:h2:mem:rohlik
+    username: admin
+    password: admin
+order:
+  ORDER_AUTO_CANCELLATION_TIME: 30
+  ORDER_AUTO_CANCELLATION_TIME_RATE: 10

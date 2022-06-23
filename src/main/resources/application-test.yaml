@@ -1,0 +1,8 @@
+spring:
+  datasource:
+    url: jdbc:h2:mem:rohlik
+    username: admin
+    password: admin
+
+order:
+  ORDER_AUTO_CANCELLATION_TIME: 1
