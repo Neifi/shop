@@ -3,6 +3,7 @@ spring:
     url: jdbc:h2:mem:rohlik
     username: admin
     password: admin
-
+  hibernate:
+    ddl-auto: create-drop
 order:
   ORDER_AUTO_CANCELLATION_TIME: 1

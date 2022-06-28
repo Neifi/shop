@@ -3,6 +3,7 @@ package es.neifi.rohlikcasestudy.application.order;
 import es.neifi.rohlikcasestudy.application.product.exception.ProductNotFoundException;
 import es.neifi.rohlikcasestudy.domain.order.CancelledOrder;
 import es.neifi.rohlikcasestudy.domain.order.OrderRegistry;
+import es.neifi.rohlikcasestudy.domain.order.OrderRegistryCreated;
 import es.neifi.rohlikcasestudy.domain.order.repository.OrderRegistryRepository;
 import es.neifi.rohlikcasestudy.domain.order.event.OrderCancelled;
 import es.neifi.rohlikcasestudy.domain.order.StartedOrder;
@@ -68,12 +69,16 @@ public class CreateOrderService {
         this.orderRepository.saveOrder(pendingPaymentOrder);
         OffsetDateTime expirationDate = pendingPaymentOrder.getCreatedAt()
                 .plusMinutes(ORDER_AUTO_CANCELLATION_TIME);
+        OrderRegistry orderRegistry = new OrderRegistry(pendingPaymentOrder.orderId(),
+                expirationDate);
         this.orderRegistryRepository.save(
-                new OrderRegistry(pendingPaymentOrder.orderId(),
-                        expirationDate)
+                orderRegistry
         );
         this.eventBus.publish(
                 new OrderCreated(pendingPaymentOrder)
+        );
+        this.eventBus.publish(
+                new OrderRegistryCreated(orderRegistry)
         );
     }
 

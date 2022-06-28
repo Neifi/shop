@@ -4,11 +4,7 @@ import es.neifi.rohlikcasestudy.domain.order.CancellationReason;
 import es.neifi.rohlikcasestudy.domain.order.OrderRegistry;
 import es.neifi.rohlikcasestudy.domain.order.OrderRegistryCreated;
 import es.neifi.rohlikcasestudy.domain.order.event.OrderCancelled;
-import es.neifi.rohlikcasestudy.domain.order.repository.OrderRegistryRepository;
 import es.neifi.rohlikcasestudy.domain.shared.EventBus;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 
 import java.time.OffsetDateTime;
 

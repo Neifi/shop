@@ -7,6 +7,7 @@ import es.neifi.rohlikcasestudy.domain.shared.ID;
 
 import java.io.Serializable;
 import java.util.HashMap;
+import java.util.Map;
 import java.util.Objects;
 
 public class OrderCancelled extends DomainEvent<OrderCancelled> {
@@ -32,7 +33,7 @@ public class OrderCancelled extends DomainEvent<OrderCancelled> {
     }
 
     @Override
-    protected HashMap<String, Serializable> toPrimitives() {
+    protected Map<String, String> toPrimitives() {
         return null;
     }
 

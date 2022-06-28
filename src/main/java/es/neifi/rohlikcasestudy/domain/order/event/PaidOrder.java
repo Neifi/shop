@@ -5,6 +5,7 @@ import es.neifi.rohlikcasestudy.domain.shared.DomainEvent;
 
 import java.io.Serializable;
 import java.util.HashMap;
+import java.util.Map;
 
 public class PaidOrder extends DomainEvent<PaidOrder> {
     private final String TYPE = "pub.seller.order.paid";
@@ -19,7 +20,7 @@ public class PaidOrder extends DomainEvent<PaidOrder> {
     }
 
     @Override
-    protected HashMap<String, Serializable> toPrimitives() {
+    protected Map<String, String> toPrimitives() {
         return null;
     }
 

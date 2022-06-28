@@ -125,7 +125,7 @@ class CreateStartedOrderServiceShould {
 
     @Test
     void dontCreateOrderWhenStockIsNotAvailable() {
-        String orderCancelledEvent = "pub.seller.order.cancelled";
+        String orderCancelledEvent = "seller.order.cancelled";
         ProductId productId = new ProductId("96c0c380-3ab7-48da-b814-b96802dfc03a");
         Quantity quantity = new Quantity(0);
         Product product = new Product(

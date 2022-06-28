@@ -7,16 +7,18 @@ import org.springframework.context.event.EventListener;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
 
+import java.util.Map;
+
 @Service
 public class KafkaDomainEventHandler implements DomainEventHandler<OrderRegistryCreated>
 {
     @Autowired
-    private KafkaTemplate<String, OrderRegistryCreated> kafkaTemplate;
+    private KafkaTemplate<String, Map<String, String>> kafkaTemplate;
 
     @Override
     @EventListener
     public void handleEvent(OrderRegistryCreated event) {
-        kafkaTemplate.send("orderRegistry",event);
+        kafkaTemplate.send("orderRegistry",event.toPrimitives());
     }
 
 }

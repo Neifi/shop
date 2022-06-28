@@ -31,8 +31,8 @@ class H2ProductRepositoryShould {
         String id = "7637cab3-69a3-440f-a63a-25c5339d800d";
         Product expectedProduct = new Product(
                 new ProductId(id),
-                new ProductName("Capers - Ox Eye Daisy"),
-                new PricePerUnit(888.74),
+                new ProductName("Orange"),
+                new PricePerUnit(1.74),
                 new Quantity(31)
         );
         Optional<Product> product = repository.findProductById(new ProductId(id));

@@ -19,6 +19,7 @@ import org.springframework.kafka.core.KafkaAdmin;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.kafka.core.ProducerFactory;
 import org.springframework.kafka.support.serializer.JsonDeserializer;
+import org.springframework.kafka.support.serializer.JsonSerializer;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -34,6 +35,8 @@ public class KafkaConfiguration {
     public KafkaAdmin kafkaAdmin() {
         Map<String, Object> configs = new HashMap<>();
         configs.put(AdminClientConfig.BOOTSTRAP_SERVERS_CONFIG, bootstrapAddress);
+        configs.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, StringSerializer.class);
+        configs.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, JsonDeserializer.class);
         return new KafkaAdmin(configs);
     }
 
@@ -56,11 +59,12 @@ public class KafkaConfiguration {
                 StringDeserializer.class);
         props.put(
                 ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG,
-                StringDeserializer.class);
+                JsonDeserializer.class);
+        JsonDeserializer<OrderRegistryCreated> jsonDeserializer = new JsonDeserializer<>(OrderRegistryCreated.class);
         return new DefaultKafkaConsumerFactory<>(
                 props,
                 new StringDeserializer(),
-                new JsonDeserializer<>(OrderRegistryCreated.class));
+                jsonDeserializer);
     }
 
     @Bean
@@ -73,7 +77,7 @@ public class KafkaConfiguration {
 
 
     @Bean
-    public ProducerFactory<String, OrderRegistryCreated> domainEventProducerFactory() {
+    public ProducerFactory<String, Map<String, String>> domainEventProducerFactory() {
         Map<String, Object> configProps = new HashMap<>();
         configProps.put(
                 ProducerConfig.BOOTSTRAP_SERVERS_CONFIG,
@@ -84,12 +88,14 @@ public class KafkaConfiguration {
         configProps.put(
                 ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG,
                 JsonDeserializer.class);
-        return new DefaultKafkaProducerFactory<>(configProps);
+        JsonSerializer<Map<String, String>> jsonDeserializer = new JsonSerializer();
+
+        return new DefaultKafkaProducerFactory<>(configProps,new StringSerializer(),jsonDeserializer);
     }
 
     @Bean
-    public KafkaTemplate<String, OrderRegistryCreated> kafkaTemplate() {
-        return (KafkaTemplate<String, OrderRegistryCreated>) new KafkaTemplate(domainEventProducerFactory());
+    public KafkaTemplate<String, Map<String, String>> kafkaTemplate() {
+        return new KafkaTemplate<>(domainEventProducerFactory());
     }
 
 }

@@ -48,7 +48,7 @@ class AutoCancellationServiceShould {
                 OffsetDateTime.now().plusSeconds(1));
 
         OrderRegistryCreated orderRegistryCreated = new OrderRegistryCreated(orderRegistry);
-        autoCancellationService.scheduleFixedRateTaskAsync(orderRegistryCreated);
+        autoCancellationService.scheduleFixedRateTaskAsync(orderRegistryCreated.toPrimitives());
         TimeUnit.SECONDS.sleep(2);
 
     }

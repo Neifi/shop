@@ -1,15 +1,17 @@
 spring:
+  jackson:
+    serialization.FAIL_ON_EMPTY_BEANS: false
   kafka:
-    bootstrap-servers: localhost
+    bootstrap-servers: localhost:29092
   jpa:
     database: H2
     show-sql: true
     hibernate:
-      ddl-auto: update
+      ddl-auto: create-drop
   datasource:
     url: jdbc:h2:mem:rohlik
     username: admin
     password: admin
 order:
-  ORDER_AUTO_CANCELLATION_TIME: 30
-  ORDER_AUTO_CANCELLATION_TIME_RATE: 10
+  ORDER_AUTO_CANCELLATION_TIME: 1
+  ORDER_AUTO_CANCELLATION_TIME_RATE: 1

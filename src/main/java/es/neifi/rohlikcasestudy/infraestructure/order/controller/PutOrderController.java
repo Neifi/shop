@@ -18,7 +18,7 @@ public class PutOrderController {
         this.createOrderService = createOrderService;
     }
 
-    @PutMapping("/order/{id}")
+    @PutMapping("/order/{orderId}")
     @ResponseStatus(HttpStatus.CREATED)
     public void createOrder(@PathVariable("orderId") String orderId, @RequestBody CreateOrderHttpRequest body) {
         createOrderService.execute(new CreateOrderRequest(orderId, body.productQuantity()));

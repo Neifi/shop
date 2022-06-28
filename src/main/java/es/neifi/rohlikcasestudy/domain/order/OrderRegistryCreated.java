@@ -5,13 +5,19 @@ import es.neifi.rohlikcasestudy.domain.shared.ID;
 
 import java.io.Serializable;
 import java.util.HashMap;
+import java.util.Map;
 
-public class OrderRegistryCreated extends DomainEvent<OrderRegistryCreated> {
+public class OrderRegistryCreated extends DomainEvent<OrderRegistryCreated>{
     private final String TYPE = "seller.order.registry.created";
     private OrderRegistry orderRegistry;
+
     public OrderRegistryCreated(OrderRegistry orderRegistry) {
         super(orderRegistry.orderId());
         this.orderRegistry = orderRegistry;
+    }
+
+    public OrderRegistryCreated(ID aggregateId) {
+        super(aggregateId);
     }
 
     @Override
@@ -24,12 +30,17 @@ public class OrderRegistryCreated extends DomainEvent<OrderRegistryCreated> {
     }
 
     @Override
-    protected HashMap<String, Serializable> toPrimitives() {
-        return null;
+    public Map<String, String> toPrimitives() {
+        return Map.of("orderId", this.orderRegistry.orderId().id().toString(),
+                "expirationDate", this.orderRegistry.expirationDate().toString());
     }
 
     @Override
-    protected OrderRegistryCreated fromPrimitives(String aggregateId, HashMap<String, Serializable> body, String eventId, String occurredOn) {
+    public  OrderRegistryCreated fromPrimitives(String aggregateId, HashMap<String, Serializable> body, String eventId, String occurredOn) {
         return null;
+    }
+
+    public OrderRegistry getOrderRegistry() {
+        return orderRegistry;
     }
 }

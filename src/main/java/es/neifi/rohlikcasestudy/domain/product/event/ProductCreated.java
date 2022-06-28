@@ -5,6 +5,7 @@ import es.neifi.rohlikcasestudy.domain.shared.DomainEvent;
 
 import java.io.Serializable;
 import java.util.HashMap;
+import java.util.Map;
 
 public class ProductCreated extends DomainEvent<ProductCreated> {
 
@@ -20,7 +21,7 @@ public class ProductCreated extends DomainEvent<ProductCreated> {
     }
 
     @Override
-    protected HashMap<String, Serializable> toPrimitives() {
+    protected Map<String, String> toPrimitives() {
         return null;
     }
 

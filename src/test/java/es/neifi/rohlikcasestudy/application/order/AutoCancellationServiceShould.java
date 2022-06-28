@@ -45,7 +45,7 @@ class AutoCancellationServiceShould {
                 OffsetDateTime.now().plusSeconds(1));
 
         OrderRegistryCreated orderRegistryCreated = new OrderRegistryCreated(orderRegistry);
-        autoCancellationService.scheduleFixedRateTaskAsync(orderRegistryCreated);
+        autoCancellationService.scheduleFixedRateTaskAsync(orderRegistryCreated.toPrimitives());
 
         verify(eventBus, times(1)).publish(orderCancelledArg.capture());
         OrderCancelled domainEvent = (OrderCancelled) orderCancelledArg.getValue();
